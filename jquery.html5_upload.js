@@ -57,7 +57,7 @@
             setProgress: function(value) {},
 
             genName: function(file, number, total) {
-                return file + "(" + (number+1) + " из " + total + ")";
+                return file + "(" + (number+1) + " of " + total + ")";
             },
             genStatus: function(progress, finished) {
                 if (finished) {
@@ -144,6 +144,7 @@
                 };
                 xhr.open(options.method, typeof(options.url) == "function" ? options.url(number) : options.url, true);
                 $.each(options.headers,function(key,val){
+                    val = encodeURIComponent(val); //encode_utf8
                     val = typeof(val) == "function" ? val(file) : val; // resolve value
                     if (val === false) return true; // if resolved value is boolean false, do not send this header
                     xhr.setRequestHeader(key, val);
